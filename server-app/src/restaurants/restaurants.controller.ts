@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { RestaurantsService } from './restaurants.service';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
@@ -23,19 +24,25 @@ export class RestaurantsController {
   ) {}
 
   @Post()
-  async create(@Body() createRestaurantDto: CreateRestaurantDto) {
-    return await this.restaurantsService.create(createRestaurantDto);
+  async create(
+    @Body() createRestaurantDto: CreateRestaurantDto,
+    @Request() request,
+  ) {
+    return await this.restaurantsService.create(
+      +request.user.sub,
+      createRestaurantDto,
+    );
   }
+
+  // @Get()
+  // findAll() {
+  //   return this.restaurantsService.findAll();
+  // }
 
   @Get()
-  findAll() {
-    return this.restaurantsService.findAll();
-  }
-
-  @Get(':token')
-  async findOne(@Param('token') token: string) {
-    const payload = await this.authService.getPayloadFromToken(token);
-    return await this.restaurantsService.findOne(+payload.sub);
+  async findOne(@Request() request) {
+    const id = request.user.sub;
+    return await this.restaurantsService.findOne(+id);
   }
 
   @Patch(':id')

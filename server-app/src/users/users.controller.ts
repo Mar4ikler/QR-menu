@@ -7,35 +7,32 @@ import {
   Param,
   Delete,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { AuthService } from 'src/auth/auth.service';
-import { JwtAuthGuard } from 'src/auth/decorators/jwtGuard';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('users')
-@UseGuards(JwtAuthGuard)
+@UseGuards(AuthGuard)
 export class UsersController {
-  constructor(
-    private readonly usersService: UsersService,
-    private readonly authService: AuthService,
-  ) {}
+  constructor(private readonly usersService: UsersService) {}
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
-  @Get()
-  findAll() {
-    return this.usersService.findAll();
-  }
+  // @Get()
+  // findAll() {
+  //   return this.usersService.findAll();
+  // }
 
-  @Get(':token')
-  async findOne(@Param('token') token: string) {
-    const payload = await this.authService.getPayloadFromToken(token);
-    return await this.usersService.findOne(+payload.sub);
+  @Get()
+  async findOne(@Request() request) {
+    const id = request.user.sub;
+    return await this.usersService.findOne(+id);
   }
 
   @Patch(':id')

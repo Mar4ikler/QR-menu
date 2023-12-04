@@ -2,7 +2,7 @@ import { API_URL } from "../constants/url";
 
 export function getRestaurant() {
   return fetch(
-    `${API_URL}/restaurants/${window.localStorage.getItem("token") || ""}`,
+    `${API_URL}/restaurants`,
     {
       method: "GET",
       headers: {
@@ -15,7 +15,7 @@ export function getRestaurant() {
 
 export function postRestaurant(restaurantName, description) {
   return fetch(
-    `${API_URL}/restaurants/${window.localStorage.getItem("token") || ""}`,
+    `${API_URL}/restaurants`,
     {
       method: "POST",
       headers: {

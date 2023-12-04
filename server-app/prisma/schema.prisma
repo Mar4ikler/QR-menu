@@ -8,7 +8,7 @@ datasource db {
 }
 
 model categories {
-  category_id   Int         @id(map: "PK__categori__D54EE9B42985A9D4") @default(autoincrement())
+  category_id   Int         @id(map: "PK__categori__D54EE9B4A806EF40") @default(autoincrement())
   category_name String      @unique(map: "ucategory_name") @db.VarChar(250)
   restaurant_id Int
   restaurants   restaurants @relation(fields: [restaurant_id], references: [restaurant_id], onDelete: Cascade, onUpdate: NoAction, map: "category_ibfk_1")
@@ -16,7 +16,7 @@ model categories {
 }
 
 model dishes {
-  dish_id     Int        @id(map: "PK__dishes__9F2B4CF9B6A49B6F") @default(autoincrement())
+  dish_id     Int        @id(map: "PK__dishes__9F2B4CF988A37283") @default(autoincrement())
   dish_name   String     @unique(map: "udish_name") @db.VarChar(250)
   description String     @db.VarChar(500)
   price       Decimal    @db.Decimal(10, 2)
@@ -25,7 +25,7 @@ model dishes {
 }
 
 model restaurants {
-  restaurant_id   Int          @id(map: "PK__restaura__3B0FAA9154B6F222") @default(autoincrement())
+  restaurant_id   Int          @id(map: "PK__restaura__3B0FAA91621A600B")
   restaurant_name String       @db.VarChar(250)
   description     String       @db.VarChar(500)
   categories      categories[]

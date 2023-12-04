@@ -7,10 +7,11 @@ import { PrismaService } from 'src/prisma.service';
 export class RestaurantsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createRestaurantDto: CreateRestaurantDto) {
+  async create(id: number, createRestaurantDto: CreateRestaurantDto) {
     return await this.prisma.restaurants.create({
       data: {
         ...createRestaurantDto,
+        restaurant_id: id,
       },
     });
   }

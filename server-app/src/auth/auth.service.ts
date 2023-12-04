@@ -18,6 +18,12 @@ export class AuthService {
   }
 
   async checkLogin(username: string, password: string) {
+    const kek = await this.prisma.users.findFirst({
+      where: {
+        username: username,
+        password: password,
+      },
+    });
     return await this.prisma.users.findFirst({
       where: {
         username: username,
