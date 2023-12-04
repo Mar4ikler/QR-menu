@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model categories {
+  category_id   Int         @id(map: "PK__categori__D54EE9B42985A9D4") @default(autoincrement())
+  category_name String      @unique(map: "ucategory_name") @db.VarChar(250)
+  restaurant_id Int
+  restaurants   restaurants @relation(fields: [restaurant_id], references: [restaurant_id], onDelete: Cascade, onUpdate: NoAction, map: "category_ibfk_1")
+  dishes        dishes[]
+}
+
+model dishes {
+  dish_id     Int        @id(map: "PK__dishes__9F2B4CF9B6A49B6F") @default(autoincrement())
+  dish_name   String     @unique(map: "udish_name") @db.VarChar(250)
+  description String     @db.VarChar(500)
+  price       Decimal    @db.Decimal(10, 2)
+  category_id Int
+  categories  categories @relation(fields: [category_id], references: [category_id], onDelete: Cascade, onUpdate: NoAction, map: "dish_ibfk_1")
+}
+
+model restaurants {
+  restaurant_id   Int          @id(map: "PK__restaura__3B0FAA9154B6F222") @default(autoincrement())
+  restaurant_name String       @db.VarChar(250)
+  description     String       @db.VarChar(500)
+  categories      categories[]
+  users           users        @relation(fields: [restaurant_id], references: [user_id], onUpdate: NoAction, map: "restaurant_ibfk_1")
+}
+
+model users {
+  user_id     Int          @id(map: "PK__users__B9BE370FB6520B1A") @default(autoincrement())
+  username    String       @db.VarChar(250)
+  email       String       @unique(map: "uemail") @db.VarChar(250)
+  password    String       @db.VarChar(250)
+  restaurants restaurants?
+}

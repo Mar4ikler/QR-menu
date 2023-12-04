@@ -1,0 +1,25 @@
+.welcomePageContainer {
+    width: 100vw;
+    height: 100vh;
+    background: white;
+    overflow: hidden;
+}
+
+.welcomeForm {
+    position: relative;
+    border: 1px solid #ecf5ff;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 0 16px rgba(47, 128, 237, 0.1);
+    top: 40%;
+    left: 45%;
+    width: 200px;
+}
+
+.contentContainer {
+    display: grid;
+    grid-template-rows: repeat(4, max-content);
+    row-gap: 15px;
+    padding: 20px;
+    justify-items: center;
+}
