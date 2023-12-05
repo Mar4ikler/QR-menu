@@ -3,6 +3,7 @@ import { getLogin } from "../../helpers/getLogin";
 import { responseHandler } from "../../helpers/responseHandler";
 import styles from "./LoginPage.module.css";
 import { useNavigate } from "react-router-dom";
+import { Button, Form } from "react-bootstrap";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -26,7 +27,7 @@ const LoginPage = () => {
     const parseRes = await responseHandler(response);
     if (parseRes["token"]) {
       window.localStorage.setItem("token", parseRes["token"]);
-      navigate('/welcome');
+      navigate("/welcome");
     } else {
       alert("Данный пользователь не существует");
     }
@@ -39,25 +40,19 @@ const LoginPage = () => {
       <div className={styles.loginForm}>
         <div className={styles.contentContainer}>
           <div>Login</div>
-          <div>
-            <label>Username:</label>
-            <input
-              type="text"
-              value={username}
-              onChange={handleUsernameChange}
-            />
-          </div>
-          <div>
-            <label>Password:</label>
-            <input
-              type="password"
-              value={password}
-              onChange={handlePasswordChange}
-            />
-          </div>
-          <button onClick={handleLogin} className={styles.loginButton}>
+          <Form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Username</Form.Label>
+              <Form.Control type="text" placeholder="Username" onChange={handleUsernameChange}/>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" placeholder="Password" onChange={handlePasswordChange}/>
+            </Form.Group>
+          </Form>
+          <Button variant="primary" onClick={handleLogin}>
             Login
-          </button>
+          </Button>
         </div>
       </div>
     </div>

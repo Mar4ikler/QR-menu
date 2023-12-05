@@ -12,16 +12,12 @@ import {
 import { RestaurantsService } from './restaurants.service';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
-import { JwtAuthGuard } from 'src/auth/decorators/jwtGuard';
-import { AuthService } from 'src/auth/auth.service';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('restaurants')
-@UseGuards(JwtAuthGuard)
+@UseGuards(AuthGuard)
 export class RestaurantsController {
-  constructor(
-    private readonly restaurantsService: RestaurantsService,
-    private readonly authService: AuthService,
-  ) {}
+  constructor(private readonly restaurantsService: RestaurantsService) {}
 
   @Post()
   async create(

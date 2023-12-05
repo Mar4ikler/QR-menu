@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import styles from "./WelcomePage.module.css";
-import { getRestaurant, postRestaurant } from "../../helpers/restaurantFunctions";
+import {
+  getRestaurant,
+  postRestaurant,
+} from "../../helpers/restaurantFunctions";
 import { responseHandler } from "../../helpers/responseHandler";
+import { Button, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const WelcomePage = () => {
-  const [restaurant, setRestaurant] = useState();
+  const navigate = useNavigate();
   const [restaurantName, setRestaurantName] = useState("");
   const [description, setDescription] = useState("");
 
@@ -19,50 +24,55 @@ const WelcomePage = () => {
   async function fetchRestaurant() {
     const response = await getRestaurant();
     const body = await responseHandler(response);
-    setRestaurant(body);
+    return body;
   }
 
   useEffect(() => {
-    fetchRestaurant();
-    console.log(restaurant);
-  }, []);
+    fetchRestaurant().then((data)=>{
+      if(data) navigate('/');
+    });
+  }, [navigate]);
 
   const saveRestaurant = () => {
     postRestaurant(restaurantName, description);
-  }
+  };
 
   return (
     <>
-      {restaurant ? (
-        <div>
-          <div></div>
-        </div>
-      ) : (
         <div className={styles.welcomePageContainer}>
           <div className={styles.welcomeForm}>
             <div className={styles.contentContainer}>
               <div>Add your restaurant</div>
-              <div>
-                <label>Restaurant name:</label>
-                <input
-                  type="text"
-                  value={restaurantName}
-                  onChange={handleRestaurantNameChange}
-                />
-              </div>
-              <div>
-                <label>Description:</label>
-                <input
-                  type="text"
-                  value={description}
-                  onChange={handleDescriptionChange}
-                />
-              </div>
-              <button onClick={saveRestaurant}>Save</button>
+              <Form>
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Restaurant name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Restaurant name"
+                    onChange={handleRestaurantNameChange}
+                  />
+                </Form.Group>
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlTextarea1"
+                >
+                  <Form.Label>Description</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    onChange={handleDescriptionChange}
+                  />
+                </Form.Group>
+              </Form>
+              <Button variant="primary" onClick={saveRestaurant}>
+                Save
+              </Button>
             </div>
           </div>
         </div>
-      )}
     </>
   );
 };

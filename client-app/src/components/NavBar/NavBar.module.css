@@ -1,0 +1,8 @@
+.navBarContainer {
+    display: grid;
+    grid-template-columns: repeat(5, max-content);
+    align-items: center;
+    column-gap: 5vw;
+    justify-content: center;
+    padding-top: 10px;
+}

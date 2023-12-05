@@ -13,14 +13,15 @@ select * from users;
 
 CREATE TABLE restaurants
 (
-    restaurant_id         int identity (1,1) PRIMARY KEY,
+    restaurant_id         int PRIMARY KEY,
     restaurant_name       varchar(250)    NOT NULL,
     description        varchar(500)   NOT NULL,
 );
 drop table restaurants;
 select * from restaurants;
-INSERT INTO restaurants (restaurant_name, description)
-VALUES ('phoenix', 'Welcome!');
+INSERT INTO restaurants (restaurant_id, restaurant_name, description)
+VALUES (1, 'Pizza Tempo', 'Welcome!');
+DELETE from restaurants where restaurant_id=1;
 
 CREATE TABLE categories
 (
@@ -43,6 +44,8 @@ CREATE TABLE dishes
 drop table dishes;
 select * from dishes;
 
+ALTER TABLE users
+DROP CONSTRAINT uemail;
 
 ALTER TABLE restaurants
     ADD CONSTRAINT restaurant_ibfk_1 FOREIGN KEY (restaurant_id) REFERENCES users (user_id);

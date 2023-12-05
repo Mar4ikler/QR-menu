@@ -5,9 +5,10 @@ import { HttpExceptionFilter } from './all-exception.filter';
 import { UsersModule } from './users/users.module';
 import { RestaurantsModule } from './restaurants/restaurants.module';
 import { JwtService } from '@nestjs/jwt';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
-  imports: [AuthModule, UsersModule, RestaurantsModule],
+  imports: [AuthModule, UsersModule, RestaurantsModule, CategoriesModule],
   controllers: [],
   providers: [
     {
