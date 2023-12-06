@@ -1,7 +1,7 @@
 import { API_URL } from "../constants/url";
 
-export function getCategories() {
-  return fetch(`${API_URL}/categories`, {
+export function getDishes(categoryId, filterString) {
+  return fetch(`${API_URL}/dishes/${categoryId}?like=${filterString}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -10,21 +10,24 @@ export function getCategories() {
   });
 }
 
-export function postCategory(categoryName) {
-  return fetch(`${API_URL}/categories`, {
+export function postDish(dishName, description, price, categoryId) {
+  return fetch(`${API_URL}/dishes`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${window.localStorage.getItem("token") || ""}`,
     },
     body: JSON.stringify({
-      category_name: categoryName,
+      dish_name: dishName,
+      description: description,
+      price: price,
+      category_id: categoryId,
     }),
   });
 }
 
-export function deleteCategory(categoryId) {
-  return fetch(`${API_URL}/categories/${categoryId}`, {
+export function deleteDish(dishId) {
+  return fetch(`${API_URL}/dishes/${dishId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -33,15 +36,17 @@ export function deleteCategory(categoryId) {
   });
 }
 
-export function updateCategory(categoryId, categoryName) {
-  return fetch(`${API_URL}/categories/${categoryId}`, {
+export function updateDish(dishId, dishName, description, price) {
+  return fetch(`${API_URL}/dishes/${dishId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${window.localStorage.getItem("token") || ""}`,
     },
     body: JSON.stringify({
-      category_name: categoryName,
+      dish_name: dishName,
+      description: description,
+      price: price,
     }),
   });
 }

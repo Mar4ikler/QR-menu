@@ -1,0 +1,11 @@
+.categoryViewContainer {
+    display: grid;
+}
+
+.contentContainer {
+    padding-top: 1vh;
+    display: grid;
+    grid-template-rows: auto;
+    row-gap: 3vh;
+    justify-self: center;
+}

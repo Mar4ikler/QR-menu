@@ -7,8 +7,13 @@ import { PrismaService } from 'src/prisma.service';
 export class CategoriesService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createCategoryDto: CreateCategoryDto) {
-    return 'This action adds a new category';
+  async create(createCategoryDto: CreateCategoryDto, id: number) {
+    return await this.prisma.categories.create({
+      data: {
+        ...createCategoryDto,
+        restaurant_id: id,
+      },
+    });
   }
 
   async findAll(id: number) {
@@ -23,11 +28,27 @@ export class CategoriesService {
     return `This action returns a #${id} category`;
   }
 
-  update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    return `This action updates a #${id} category`;
+  async update(
+    id: number,
+    updateCategoryDto: UpdateCategoryDto,
+    restaurantId: number,
+  ) {
+    return await this.prisma.categories.update({
+      where: {
+        category_id: id,
+      },
+      data: {
+        ...updateCategoryDto,
+        restaurant_id: restaurantId,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} category`;
+  async remove(id: number) {
+    return await this.prisma.categories.delete({
+      where: {
+        category_id: id,
+      },
+    });
   }
 }

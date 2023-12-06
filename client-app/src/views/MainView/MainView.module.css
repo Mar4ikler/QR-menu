@@ -1,5 +1,17 @@
 .mainViewContainer {
-    position: relative;
-    top: 300px;
-    left: 450px;
+    display: grid;
+    height: 90vh;
+    width: 100vw;
+}
+
+.cardContainer {
+    width: max-content;
+    height: max-content;
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    border: 1px solid #ecf5ff;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 0 16px rgba(47, 128, 237, 0.1);
 }

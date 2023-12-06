@@ -1,3 +1,7 @@
 .navBarContainer {
     overflow: hidden;
 }
+
+.outletContainer {
+    width: 100vw;
+}

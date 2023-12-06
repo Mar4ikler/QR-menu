@@ -1,39 +1,43 @@
-import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import styles from "./AddCategoryButton.module.css";
-import { postCategory } from "../../helpers/categoriesFunctions";
+import { useState } from "react";
+import { updateCategory } from "../../helpers/categoriesFunctions";
+import { useNavigate } from "react-router-dom";
 
-const AddCategoryButton = ({ fetchCategories }) => {
+const UpdateCategoryButton = ({ fetchCategories, categoryId }) => {
   const [isPressed, setIsPressed] = useState(false);
   const [name, setName] = useState("");
+  const navigate = useNavigate();
 
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
 
-  const saveCategory = () => {
-    postCategory(name).then(()=>fetchCategories());
+  const handleUpdateCategory = () => {
+    updateCategory(categoryId, name).then(() => {
+      fetchCategories();
+      navigate("/main");
+    });
     setIsPressed(false);
   };
 
   return (
     <>
       {!isPressed ? (
-        <Button variant="primary" onClick={() => setIsPressed(true)}>
-          +
+        <Button variant="info" onClick={() => setIsPressed(true)}>
+          Update
         </Button>
       ) : (
-        <div className={styles.formContainer}>
+        <div>
           <Form>
             <Form.Group controlId="exampleForm.ControlInput1">
               <Form.Control
                 type="text"
-                placeholder="Name"
+                placeholder="New name"
                 onChange={handleNameChange}
               />
             </Form.Group>
           </Form>
-          <Button variant="primary" onClick={saveCategory}>
+          <Button variant="primary" onClick={handleUpdateCategory}>
             Save
           </Button>
           <Button variant="danger" onClick={() => setIsPressed(false)}>
@@ -45,4 +49,4 @@ const AddCategoryButton = ({ fetchCategories }) => {
   );
 };
 
-export default AddCategoryButton;
+export default UpdateCategoryButton;

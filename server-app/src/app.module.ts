@@ -6,9 +6,10 @@ import { UsersModule } from './users/users.module';
 import { RestaurantsModule } from './restaurants/restaurants.module';
 import { JwtService } from '@nestjs/jwt';
 import { CategoriesModule } from './categories/categories.module';
+import { DishesModule } from './dishes/dishes.module';
 
 @Module({
-  imports: [AuthModule, UsersModule, RestaurantsModule, CategoriesModule],
+  imports: [AuthModule, UsersModule, RestaurantsModule, CategoriesModule, DishesModule],
   controllers: [],
   providers: [
     {

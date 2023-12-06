@@ -1,36 +1,28 @@
-import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import { getCategories } from "../../helpers/categoriesFunctions";
-import { responseHandler } from "../../helpers/responseHandler";
 import AddCategoryButton from "../AddCategoryButton/AddCategoryButton";
 import styles from "./NavBar.module.css";
 import CategoryButton from "../CategoryButton/CategoryButton";
+import { useNavigate } from "react-router-dom";
 
-const NavBar = () => {
-  const [categories, setCategories] = useState([]);
-
-  async function fetchCategories() {
-    const response = await getCategories();
-    const body = await responseHandler(response);
-    setCategories(body);
-  }
-
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  useEffect(() => {
-    console.log(categories);
-  }, [categories]);
+const NavBar = ({ categories, fetchCategories }) => {
+  const navigate = useNavigate();
 
   return (
     <div className={styles.navBarContainer}>
-      <Button variant="primary">Main</Button>
+      <Button variant="primary" onClick={() => navigate("/main")}>
+        Main
+      </Button>
       {categories.length > 0 &&
         categories.map((item, index) => (
-          <CategoryButton name={item.category_name} key={index}/>
+          <CategoryButton
+            name={item.category_name}
+            key={index}
+            path={`/${item.category_name.toLowerCase()}`}
+          />
         ))}
-      <AddCategoryButton />
+      {categories.length < 9 && (
+        <AddCategoryButton fetchCategories={fetchCategories} />
+      )}
     </div>
   );
 };

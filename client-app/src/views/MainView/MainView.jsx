@@ -19,12 +19,14 @@ const MainView = () => {
 
   return (
     <div className={styles.mainViewContainer}>
+      <div className={styles.cardContainer}>
       <Card style={{ width: "18rem" }}>
         <Card.Body>
           <Card.Title>{restaurant?.restaurant_name}</Card.Title>
           <Card.Text>{restaurant?.description}</Card.Text>
         </Card.Body>
       </Card>
+      </div>  
     </div>
   );
 };
