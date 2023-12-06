@@ -20,7 +20,7 @@ const NavBar = ({ categories, fetchCategories }) => {
             path={`/${item.category_name.toLowerCase()}`}
           />
         ))}
-      {categories.length < 9 && (
+      {categories.length < 9 && localStorage.getItem("token") && (
         <AddCategoryButton fetchCategories={fetchCategories} />
       )}
     </div>

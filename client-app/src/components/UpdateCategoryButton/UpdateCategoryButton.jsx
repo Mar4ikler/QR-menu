@@ -24,7 +24,7 @@ const UpdateCategoryButton = ({ fetchCategories, categoryId }) => {
     <>
       {!isPressed ? (
         <Button variant="info" onClick={() => setIsPressed(true)}>
-          Update
+          Edit category
         </Button>
       ) : (
         <div>

@@ -15,10 +15,10 @@ import { UpdateDishDto } from './dto/update-dish.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('dishes')
-@UseGuards(AuthGuard)
 export class DishesController {
   constructor(private readonly dishesService: DishesService) {}
 
+  @UseGuards(AuthGuard)
   @Post()
   async create(@Body() createDishDto: CreateDishDto) {
     return await this.dishesService.create(createDishDto);
@@ -34,11 +34,13 @@ export class DishesController {
   //   return this.dishesService.findOne(+id);
   // }
 
+  @UseGuards(AuthGuard)
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateDishDto: UpdateDishDto) {
     return await this.dishesService.update(+id, updateDishDto);
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return await this.dishesService.remove(+id);

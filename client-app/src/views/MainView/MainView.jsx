@@ -3,6 +3,7 @@ import styles from "./MainView.module.css";
 import { getRestaurant } from "../../helpers/restaurantFunctions";
 import { responseHandler } from "../../helpers/responseHandler";
 import { Card } from "react-bootstrap";
+import QRGenerateButton from "../../components/QRGenerateButton/QRGenerateButton";
 
 const MainView = () => {
   const [restaurant, setRestaurant] = useState({});
@@ -27,6 +28,7 @@ const MainView = () => {
         </Card.Body>
       </Card>
       </div>  
+      <QRGenerateButton />
     </div>
   );
 };

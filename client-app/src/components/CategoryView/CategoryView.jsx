@@ -108,7 +108,7 @@ const CategoryView = ({ category, fetchCategories }) => {
           categoryId={category.category_id}
         />
         <Button variant="danger" onClick={handleDeleteCategory}>
-          Delete
+          Delete category
         </Button>
       </div>
     </div>

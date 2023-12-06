@@ -15,10 +15,10 @@ import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('restaurants')
-@UseGuards(AuthGuard)
 export class RestaurantsController {
   constructor(private readonly restaurantsService: RestaurantsService) {}
 
+  @UseGuards(AuthGuard)
   @Post()
   async create(
     @Body() createRestaurantDto: CreateRestaurantDto,

@@ -4,7 +4,7 @@ export function responseHandler(response) {
     const data = text && JSON.parse(text);
     if (response.status === 401) {
       window.localStorage.removeItem("token");
-      window.location.assign("http://localhost:3000/login");
+      //window.location.assign("http://localhost:3000/login");
       return;
     }
     // const error = (data && data.message) || response.statusText;
