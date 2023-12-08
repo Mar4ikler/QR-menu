@@ -1,0 +1,5 @@
+.funcButtons {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    column-gap: 0.5vw;
+}

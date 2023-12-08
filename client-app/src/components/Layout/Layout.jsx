@@ -1,11 +1,14 @@
 import NavBar from "../NavBar/NavBar";
 import { Outlet } from "react-router-dom";
-import styles from './Layout.module.css';
+import styles from "./Layout.module.css";
 
-const Layout = ({categories, fetchCategories}) => {
+const Layout = ({ categories, fetchCategories }) => {
   return (
-    <div>
-      <NavBar categories={categories} fetchCategories={fetchCategories}/>
+    <div className={styles.contentContainer}>
+      <NavBar
+        categories={categories}
+        fetchCategories={fetchCategories}
+      />
       <div className={styles.outletContainer}>
         <Outlet />
       </div>

@@ -28,8 +28,15 @@ export class RestaurantsService {
     });
   }
 
-  update(id: number, updateRestaurantDto: UpdateRestaurantDto) {
-    return `This action updates a #${id} restaurant`;
+  async update(id: number, updateRestaurantDto: UpdateRestaurantDto) {
+    return await this.prisma.restaurants.update({
+      where: {
+        restaurant_id: id,
+      },
+      data: {
+        ...updateRestaurantDto,
+      },
+    });
   }
 
   remove(id: number) {

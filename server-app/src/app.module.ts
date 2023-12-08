@@ -1,4 +1,9 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
 import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from './all-exception.filter';
@@ -7,9 +12,17 @@ import { RestaurantsModule } from './restaurants/restaurants.module';
 import { JwtService } from '@nestjs/jwt';
 import { CategoriesModule } from './categories/categories.module';
 import { DishesModule } from './dishes/dishes.module';
+import { IpMiddleware } from './ip.middleware';
+import { PrismaService } from './prisma.service';
 
 @Module({
-  imports: [AuthModule, UsersModule, RestaurantsModule, CategoriesModule, DishesModule],
+  imports: [
+    AuthModule,
+    UsersModule,
+    RestaurantsModule,
+    CategoriesModule,
+    DishesModule,
+  ],
   controllers: [],
   providers: [
     {
@@ -17,6 +30,14 @@ import { DishesModule } from './dishes/dishes.module';
       useClass: HttpExceptionFilter,
     },
     JwtService,
+    PrismaService,
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(IpMiddleware)
+      .exclude({ path: 'auth/login', method: RequestMethod.ALL })
+      .forRoutes('*');
+  }
+}

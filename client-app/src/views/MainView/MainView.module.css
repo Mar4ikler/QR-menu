@@ -15,3 +15,22 @@
     border-radius: 16px;
     box-shadow: 0 0 16px rgba(47, 128, 237, 0.1);
 }
+
+.qrButton {
+    width: max-content;
+    height: max-content;
+    display: flex;
+    justify-self: center;
+}
+
+.mainButtons {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    row-gap: 3vh;
+}
+
+.updateButton {
+    display: flex;
+    width: max-content;
+    justify-self: center;
+}

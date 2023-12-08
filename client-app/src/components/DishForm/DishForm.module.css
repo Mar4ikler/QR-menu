@@ -1,3 +1,17 @@
 .deleteDishButton {
     justify-self: end;
 }
+
+.dishContainer {
+    padding-bottom: 3vh;
+}
+
+.funcButtons {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+}
+
+.deleteButton {
+    justify-self: end;
+    align-self: flex-end;
+}

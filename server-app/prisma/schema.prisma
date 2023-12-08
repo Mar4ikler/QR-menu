@@ -8,16 +8,16 @@ datasource db {
 }
 
 model categories {
-  category_id   Int         @id(map: "PK__categori__D54EE9B4A806EF40") @default(autoincrement())
-  category_name String      @unique(map: "ucategory_name") @db.VarChar(250)
+  category_id   Int         @id(map: "PK__categori__D54EE9B44A0F95A6") @default(autoincrement())
+  category_name String      @db.VarChar(250)
   restaurant_id Int
   restaurants   restaurants @relation(fields: [restaurant_id], references: [restaurant_id], onDelete: Cascade, onUpdate: NoAction, map: "category_ibfk_1")
   dishes        dishes[]
 }
 
 model dishes {
-  dish_id     Int        @id(map: "PK__dishes__9F2B4CF988A37283") @default(autoincrement())
-  dish_name   String     @unique(map: "udish_name") @db.VarChar(250)
+  dish_id     Int        @id(map: "PK__dishes__9F2B4CF9F4154EF5") @default(autoincrement())
+  dish_name   String     @db.VarChar(250)
   description String     @db.VarChar(500)
   price       Decimal    @db.Decimal(10, 2)
   category_id Int
@@ -25,17 +25,18 @@ model dishes {
 }
 
 model restaurants {
-  restaurant_id   Int          @id(map: "PK__restaura__3B0FAA91621A600B")
+  restaurant_id   Int          @id(map: "PK__restaura__3B0FAA91CAFEDCEA")
   restaurant_name String       @db.VarChar(250)
   description     String       @db.VarChar(500)
+  ip              String       @db.VarChar(250)
   categories      categories[]
   users           users        @relation(fields: [restaurant_id], references: [user_id], onUpdate: NoAction, map: "restaurant_ibfk_1")
 }
 
 model users {
-  user_id     Int          @id(map: "PK__users__B9BE370FB6520B1A") @default(autoincrement())
+  user_id     Int          @id(map: "PK__users__B9BE370FAA56A769") @default(autoincrement())
   username    String       @db.VarChar(250)
-  email       String       @unique(map: "uemail") @db.VarChar(250)
+  email       String       @db.VarChar(250)
   password    String       @db.VarChar(250)
   restaurants restaurants?
 }

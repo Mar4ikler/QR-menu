@@ -19,21 +19,21 @@ import { AuthGuard } from 'src/auth/auth.guard';
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
-  @UseGuards(AuthGuard)
   @Post()
+  @UseGuards(AuthGuard)
   async create(
     @Body() createCategoryDto: CreateCategoryDto,
     @Request() request,
   ) {
     return await this.categoriesService.create(
       createCategoryDto,
-      +request.user.sub,
+      +request.restaurant_id,
     );
   }
 
   @Get()
   async findAll(@Request() request) {
-    const id = request.user.sub;
+    const id = request.restaurant_id;
     return await this.categoriesService.findAll(+id);
   }
 
@@ -42,8 +42,8 @@ export class CategoriesController {
     return this.categoriesService.findOne(+id);
   }
 
-  @UseGuards(AuthGuard)
   @Patch(':id')
+  @UseGuards(AuthGuard)
   async update(
     @Param('id') id: string,
     @Body() updateCategoryDto: UpdateCategoryDto,
@@ -52,12 +52,12 @@ export class CategoriesController {
     return await this.categoriesService.update(
       +id,
       updateCategoryDto,
-      +request.user.sub,
+      +request.restaurant_id,
     );
   }
 
-  @UseGuards(AuthGuard)
   @Delete(':id')
+  @UseGuards(AuthGuard)
   async remove(@Param('id') id: string) {
     return await this.categoriesService.remove(+id);
   }

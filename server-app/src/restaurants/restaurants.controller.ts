@@ -18,8 +18,8 @@ import { AuthGuard } from 'src/auth/auth.guard';
 export class RestaurantsController {
   constructor(private readonly restaurantsService: RestaurantsService) {}
 
-  @UseGuards(AuthGuard)
   @Post()
+  @UseGuards(AuthGuard)
   async create(
     @Body() createRestaurantDto: CreateRestaurantDto,
     @Request() request,
@@ -37,19 +37,22 @@ export class RestaurantsController {
 
   @Get()
   async findOne(@Request() request) {
-    const id = request.user.sub;
+    const id = request.restaurant_id;
     return await this.restaurantsService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
+  @Patch()
+  @UseGuards(AuthGuard)
+  async update(
     @Body() updateRestaurantDto: UpdateRestaurantDto,
+    @Request() request,
   ) {
-    return this.restaurantsService.update(+id, updateRestaurantDto);
+    const id = request.restaurant_id;
+    return await this.restaurantsService.update(+id, updateRestaurantDto);
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard)
   remove(@Param('id') id: string) {
     return this.restaurantsService.remove(+id);
   }

@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { responseHandler } from "../helpers/responseHandler";
 import { getCategories } from "../helpers/categoriesFunctions";
 import CategoryView from "../components/CategoryView/CategoryView";
+import NotFound from "../components/NotFound/NotFound";
 
 function App() {
   const [categories, setCategories] = useState([]);
@@ -21,6 +22,7 @@ function App() {
     const body = await responseHandler(response);
     setCategories(body);
   }
+
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -30,7 +32,6 @@ function App() {
       <Router>
         <Routes>
           <Route element={<LoginPage />} path="/login" />
-          <Route element={<WelcomePage />} path="/welcome" />
           <Route
             element={
               <Layout
@@ -40,9 +41,16 @@ function App() {
             }
             path="/"
           >
+            <Route
+              element={<WelcomePage fetchCategories={fetchCategories} />}
+              path="/welcome"
+            />
             <Route index element={<Navigate to="/main" />} />
-            <Route element={<MainView />} path="main" />
-            {categories.length > 0 &&
+            <Route
+              element={<MainView fetchCategories={fetchCategories} />}
+              path="main"
+            />
+            {categories?.length > 0 &&
               categories.map((item, index) => (
                 <Route
                   key={index}
@@ -56,6 +64,7 @@ function App() {
                 />
               ))}
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </>

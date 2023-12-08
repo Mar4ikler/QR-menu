@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { updateDish } from "../../helpers/dishesFunctions";
-import styles from "./UpdateDishButton.module.css";
+import styles from "./UpdateRestaurantButton.module.css";
+import { updateRestaurant } from "../../helpers/restaurantFunctions";
 import { responseHandler } from "../../helpers/responseHandler";
 
-const UpdateDishButton = ({ dish, fetchDishes }) => {
+const UpdateRestaurantButton = ({ restaurant, fetchRestaurant }) => {
   const [isPressed, setIsPressed] = useState(false);
-  const [name, setName] = useState(dish.dish_name);
-  const [description, setDescription] = useState(dish.description);
-  const [price, setPrice] = useState(dish.price);
+  const [name, setName] = useState(restaurant?.restaurant_name);
+  const [description, setDescription] = useState(restaurant?.description);
+  const [ip, setIp] = useState(restaurant?.ip);
   const [isDisabled, setIsDisabled] = useState(true);
 
   const handleNameChange = (event) => {
@@ -19,34 +19,31 @@ const UpdateDishButton = ({ dish, fetchDishes }) => {
     setDescription(event.target.value.trim());
   };
 
-  const handlePriceChange = (event) => {
-    setPrice(event.target.value <= 0 ? 0 : event.target.value);
+  const handleIpChange = (event) => {
+    setIp(event.target.value.trim());
   };
 
   const handleUpdateDish = async () => {
-    const response = await updateDish(dish.dish_id, name, description, price);
+    const response = await updateRestaurant(name, description, ip);
     responseHandler(response);
-    fetchDishes();
+    fetchRestaurant();
     setIsPressed(false);
-    setName(dish.dish_name);
-    setDescription(dish.description);
-    setPrice(dish.price);
+    setName(restaurant.restaurant_name);
+    setDescription(restaurant.description);
+    setIp(restaurant.ip);
   };
 
   useEffect(() => {
     setIsDisabled(
-      name.length === 0 ||
-        description.length === 0 ||
-        price === 0 ||
-        price.length === 0
+      name?.length === 0 || description?.length === 0 || ip?.length === 0
     );
-  }, [name, description, price]);
+  }, [name, description, ip]);
 
   return (
     <>
       {!isPressed ? (
         <Button variant="info" onClick={() => setIsPressed(true)}>
-          Edit
+          Edit restaurant info
         </Button>
       ) : (
         <div>
@@ -56,7 +53,7 @@ const UpdateDishButton = ({ dish, fetchDishes }) => {
                 type="text"
                 placeholder="New name"
                 onChange={handleNameChange}
-                defaultValue={dish.dish_name}
+                defaultValue={restaurant.restaurant_name}
               />
             </Form.Group>
             <Form.Group
@@ -68,18 +65,16 @@ const UpdateDishButton = ({ dish, fetchDishes }) => {
                 rows={3}
                 onChange={handleDescriptionChange}
                 placeholder="New description"
-                defaultValue={dish.description}
+                defaultValue={restaurant.description}
               />
             </Form.Group>
           </Form>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Control
-              type="number"
-              placeholder="New price"
-              onChange={handlePriceChange}
-              min={0}
-              // value={price}
-              defaultValue={dish.price}
+              type="text"
+              placeholder="New ip"
+              onChange={handleIpChange}
+              defaultValue={restaurant.ip}
             />
           </Form.Group>
           <div className={styles.funcButtons}>
@@ -94,9 +89,9 @@ const UpdateDishButton = ({ dish, fetchDishes }) => {
               variant="danger"
               onClick={() => {
                 setIsPressed(false);
-                setName(dish.dish_name);
-                setDescription(dish.description);
-                setPrice(dish.price);
+                setName(restaurant.restaurant_name);
+                setDescription(restaurant.description);
+                setIp(restaurant.ip);
               }}
             >
               Cancel
@@ -108,4 +103,4 @@ const UpdateDishButton = ({ dish, fetchDishes }) => {
   );
 };
 
-export default UpdateDishButton;
+export default UpdateRestaurantButton;

@@ -2,9 +2,10 @@ import html2canvas from "html2canvas";
 import QRCode from "qrcode.react";
 import { useRef, useState } from "react";
 import { Button } from "react-bootstrap";
+import styles from "./QRGenerateButton.module.css";
 
 const QRGenerateButton = () => {
-  const url = "http://localhost:3000/main";
+  const url = `${window.location.origin}/main`;
   const [isGenerated, setIsGenerated] = useState(false);
   const qrCodeRef = useRef(null);
 
@@ -23,12 +24,12 @@ const QRGenerateButton = () => {
   };
 
   return (
-    <>
-      <Button variant="danger" onClick={()=>setIsGenerated(true)}>
+    <div className={styles.qrContainer}>
+      <Button variant="danger" onClick={() => setIsGenerated(true)}>
         Generate QR-code
       </Button>
       {isGenerated && (
-        <div>
+        <div className={styles.contentContainer}>
           <div style={{ width: 300, height: 300 }}>
             <div ref={qrCodeRef}>
               <QRCode
@@ -39,12 +40,14 @@ const QRGenerateButton = () => {
               />
             </div>
           </div>
-          <Button variant="danger" onClick={saveAsPNG}>
-            Save QR-code
-          </Button>
+          <div className={styles.saveButton}>
+            <Button variant="danger" onClick={saveAsPNG}>
+              Save QR-code
+            </Button>
+          </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

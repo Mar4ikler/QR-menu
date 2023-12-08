@@ -18,11 +18,11 @@ const CategoryView = ({ category, fetchCategories }) => {
   const [searchValue, setSearchValue] = useState("");
   const [orderValue, setOrderValue] = useState("");
 
-  const handleDeleteCategory = () => {
-    deleteCategory(category.category_id).then(() => {
-      fetchCategories();
-      navigate("/main");
-    });
+  const handleDeleteCategory = async () => {
+    const response = await deleteCategory(category.category_id);
+    responseHandler(response);
+    fetchCategories();
+    navigate("/main");
   };
 
   async function fetchDishes() {
@@ -90,26 +90,45 @@ const CategoryView = ({ category, fetchCategories }) => {
   return (
     <div className={styles.categoryViewContainer}>
       <div className={styles.contentContainer}>
-        <SearchComponent
-          searchValue={searchValue}
-          setSearchValue={setSearchValue}
-        />
-        <GeneralSelect orderValue={orderValue} setOrderValue={setOrderValue} />
-        {dishes.length > 0 &&
-          dishes.map((item, index) => (
-            <DishForm key={index} dish={item} fetchDishes={fetchDishes} />
-          ))}
-        <AddDishButton
-          categoryId={category.category_id}
-          fetchDishes={fetchDishes}
-        />
-        <UpdateCategoryButton
-          fetchCategories={fetchCategories}
-          categoryId={category.category_id}
-        />
-        <Button variant="danger" onClick={handleDeleteCategory}>
-          Delete category
-        </Button>
+        <div className={styles.functionalButtons}>
+          <div className={styles.searchWidthFix}>
+            <SearchComponent
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+            />
+          </div>
+          <div className={styles.selectWidthFix}>
+            <GeneralSelect
+              orderValue={orderValue}
+              setOrderValue={setOrderValue}
+            />
+          </div>
+        </div>
+        <div className={styles.dishesContainer}>
+          {dishes?.length > 0 &&
+            dishes.map((item, index) => (
+              <DishForm key={index} dish={item} fetchDishes={fetchDishes} />
+            ))}
+        </div>
+        {localStorage.getItem("token") && (
+          <>
+            <div className={styles.addDishContainer}>
+              <AddDishButton
+                categoryId={category.category_id}
+                fetchDishes={fetchDishes}
+              />
+            </div>
+            <div className={styles.categoriesButtons}>
+              <UpdateCategoryButton
+                fetchCategories={fetchCategories}
+                category={category}
+              />
+              <Button variant="danger" onClick={handleDeleteCategory}>
+                Delete category
+              </Button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

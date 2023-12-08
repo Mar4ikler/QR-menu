@@ -18,8 +18,8 @@ import { AuthGuard } from 'src/auth/auth.guard';
 export class DishesController {
   constructor(private readonly dishesService: DishesService) {}
 
-  @UseGuards(AuthGuard)
   @Post()
+  @UseGuards(AuthGuard)
   async create(@Body() createDishDto: CreateDishDto) {
     return await this.dishesService.create(createDishDto);
   }
@@ -34,14 +34,14 @@ export class DishesController {
   //   return this.dishesService.findOne(+id);
   // }
 
-  @UseGuards(AuthGuard)
   @Patch(':id')
+  @UseGuards(AuthGuard)
   async update(@Param('id') id: string, @Body() updateDishDto: UpdateDishDto) {
     return await this.dishesService.update(+id, updateDishDto);
   }
 
-  @UseGuards(AuthGuard)
   @Delete(':id')
+  @UseGuards(AuthGuard)
   async remove(@Param('id') id: string) {
     return await this.dishesService.remove(+id);
   }

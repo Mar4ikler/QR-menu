@@ -4,4 +4,10 @@
 
 .outletContainer {
     width: 100vw;
+    padding-left: 5vw;
+}
+
+.contentContainer {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
 }

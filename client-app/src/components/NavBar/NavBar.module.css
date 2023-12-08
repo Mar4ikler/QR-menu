@@ -1,8 +1,18 @@
 .navBarContainer {
     display: grid;
-    grid-template-columns: repeat(10, max-content);
+    grid-template-rows: repeat(auto, max-content);
     align-items: center;
-    column-gap: 5vw;
+    row-gap: 1vh;
     justify-content: center;
-    padding-top: 10px;
+    position: fixed;
+    height: max-content;
+}
+
+.contentContainer {
+    position: fixed;
+    border: 1px solid #ecf5ff;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 0 16px rgba(47, 128, 237, 0.1);
+    height: max-content;
 }

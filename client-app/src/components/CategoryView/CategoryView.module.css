@@ -8,4 +8,45 @@
     grid-template-rows: auto;
     row-gap: 3vh;
     justify-self: center;
+    width: 80vw;
+}
+
+.dishesContainer {
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    column-gap: 5vw;
+}
+
+.addDishContainer {
+    padding-left: 5vw;
+    width: 20vw;
+    justify-self: center;
+}
+
+.searchWidthFix {
+    width: max-content;
+    justify-self: center;
+}
+
+.selectWidthFix {
+    width: max-content;
+    justify-self: end;
+}
+
+.categoriesButtons {
+    background-color: white;
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    row-gap: 1vh;
+    width: 20vw;
+    justify-self: end;
+}
+
+.categoriesButtonsContainer {
+    position: absolute;
+}
+
+.functionalButtons {
+    display: grid;
+    grid-template-columns: max-content 1fr;
 }
