@@ -33,6 +33,10 @@ function App() {
         <Routes>
           <Route element={<LoginPage />} path="/login" />
           <Route
+              element={<WelcomePage fetchCategories={fetchCategories} />}
+              path="/welcome"
+            />
+          <Route
             element={
               <Layout
                 categories={categories}
@@ -41,10 +45,6 @@ function App() {
             }
             path="/"
           >
-            <Route
-              element={<WelcomePage fetchCategories={fetchCategories} />}
-              path="/welcome"
-            />
             <Route index element={<Navigate to="/main" />} />
             <Route
               element={<MainView fetchCategories={fetchCategories} />}
@@ -58,7 +58,7 @@ function App() {
                     <CategoryView
                       category={item}
                       fetchCategories={fetchCategories}
-                    />
+                    />  
                   }
                   path={`/${item.category_name.toLowerCase()}`}
                 />

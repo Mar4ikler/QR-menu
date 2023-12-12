@@ -24,9 +24,11 @@ CREATE TABLE restaurants
 );
 drop table restaurants;
 select * from restaurants;
-INSERT INTO restaurants (restaurant_id, restaurant_name, description)
-VALUES (1, 'Pizza Tempo', 'Welcome!');
-DELETE from restaurants where restaurant_id=2;
+INSERT INTO restaurants (restaurant_id, restaurant_name, description, ip)
+VALUES (1, 'Pizza Tempo', 'Welcome!', '172.20.10');
+INSERT INTO restaurants (restaurant_id, restaurant_name, description, ip)
+VALUES (1, 'Pizza Tempo', 'Welcome!', '10.208.47');
+DELETE from restaurants where restaurant_id=1;
 alter table restaurants add ip varchar(250);
 UPDATE restaurants SET ip = '192.168.1.104' where restaurant_id = 2;
 ALTER TABLE restaurants

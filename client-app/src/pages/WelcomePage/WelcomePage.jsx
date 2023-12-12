@@ -13,7 +13,7 @@ const WelcomePage = ({ fetchCategories }) => {
   const [restaurantName, setRestaurantName] = useState("");
   const [description, setDescription] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
-  const [ip, setIp] = useState("");
+  const [ip, setIp] = useState(window.location.hostname.split('.').slice(0,3).join('.'));
 
   const handleRestaurantNameChange = (event) => {
     setRestaurantName(event.target.value.trim());
@@ -29,18 +29,18 @@ const WelcomePage = ({ fetchCategories }) => {
 
   async function fetchRestaurant() {
     const response = await getRestaurant();
-    const body = await responseHandler(response);
+    const body = responseHandler(response);
     return body;
   }
 
   useEffect(() => {
     fetchRestaurant().then((data) => {
-      if (data) {
+      if (data?.restaurant_id) {
         fetchCategories();
         navigate("/main");
       }
     });
-  }, [navigate]);
+  }, []);
 
   const saveRestaurant = () => {
     postRestaurant(restaurantName, description, ip);
@@ -96,6 +96,7 @@ const WelcomePage = ({ fetchCategories }) => {
                   type="text"
                   placeholder="IP-address"
                   onChange={handleIpChange}
+                  defaultValue={ip} 
                 />
               </Form.Group>
             </Form>

@@ -8,7 +8,7 @@ export function responseHandler(response) {
       return;
     }
     // if (response.status === 404) {
-    //   window.location.assign("http://192.168.0.104:3000/notFound");
+    //   window.location.assign("http://172.20.10.2:3000/welcome");
     //   return;
     // }
     // const error = (data && data.message) || response.statusText;

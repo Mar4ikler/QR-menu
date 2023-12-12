@@ -97,6 +97,21 @@ const CategoryView = ({ category, fetchCategories }) => {
               setSearchValue={setSearchValue}
             />
           </div>
+          {localStorage.getItem("token") && (
+            <div className={styles.categoriesButtons}>
+              <div className={styles.updateButton}>
+                <UpdateCategoryButton
+                  fetchCategories={fetchCategories}
+                  category={category}
+                />
+              </div>
+              <div className={styles.deleteButtton}>
+                <Button variant="danger" onClick={handleDeleteCategory}>
+                  Delete category
+                </Button>
+              </div>
+            </div>
+          )}
           <div className={styles.selectWidthFix}>
             <GeneralSelect
               orderValue={orderValue}
@@ -111,23 +126,12 @@ const CategoryView = ({ category, fetchCategories }) => {
             ))}
         </div>
         {localStorage.getItem("token") && (
-          <>
-            <div className={styles.addDishContainer}>
-              <AddDishButton
-                categoryId={category.category_id}
-                fetchDishes={fetchDishes}
-              />
-            </div>
-            <div className={styles.categoriesButtons}>
-              <UpdateCategoryButton
-                fetchCategories={fetchCategories}
-                category={category}
-              />
-              <Button variant="danger" onClick={handleDeleteCategory}>
-                Delete category
-              </Button>
-            </div>
-          </>
+          <div className={styles.addDishContainer}>
+            <AddDishButton
+              categoryId={category.category_id}
+              fetchDishes={fetchDishes}
+            />
+          </div>
         )}
       </div>
     </div>

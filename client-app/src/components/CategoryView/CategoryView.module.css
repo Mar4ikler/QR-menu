@@ -7,7 +7,6 @@
     display: grid;
     grid-template-rows: auto;
     row-gap: 3vh;
-    justify-self: center;
     width: 80vw;
 }
 
@@ -36,10 +35,9 @@
 .categoriesButtons {
     background-color: white;
     display: grid;
-    grid-template-rows: repeat(2, max-content);
-    row-gap: 1vh;
-    width: 20vw;
-    justify-self: end;
+    grid-template-columns: repeat(2, max-content);
+    column-gap: 0.5vh;
+    width: max-content;
 }
 
 .categoriesButtonsContainer {
@@ -48,5 +46,14 @@
 
 .functionalButtons {
     display: grid;
-    grid-template-columns: max-content 1fr;
+    grid-template-columns: max-content max-content 1fr;
+    column-gap: 11vw;
+}
+
+.updateButton {
+    height: max-content;
+}
+
+.deleteButton {
+    height: max-content;
 }

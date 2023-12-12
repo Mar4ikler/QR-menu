@@ -10,7 +10,9 @@ const AddCategoryButton = ({ fetchCategories }) => {
   const [isDisabled, setIsDisabled] = useState(true);
 
   const handleNameChange = (event) => {
-    setName(event.target.value.trim());
+    setName((prev) => {
+      return event.target.value.length < 12 ? event.target.value.trim() : prev;
+    });
   };
 
   const saveCategory = async () => {
@@ -18,7 +20,7 @@ const AddCategoryButton = ({ fetchCategories }) => {
     responseHandler(response);
     fetchCategories();
     setIsPressed(false);
-    setName("");    
+    setName("");
   };
 
   useEffect(() => {
@@ -39,6 +41,7 @@ const AddCategoryButton = ({ fetchCategories }) => {
                 type="text"
                 placeholder="Name"
                 onChange={handleNameChange}
+                value={name}
               />
             </Form.Group>
           </Form>

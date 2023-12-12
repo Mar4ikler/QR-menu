@@ -1,0 +1,18 @@
+name: server-app
+services:
+    backend:
+        build: .
+        container_name: server-backend
+        networks:
+            - server-side
+            - client-side
+        ports:
+            - 4000:4000
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+
+
+networks:
+    client-side: {}
+    server-side: {}
+
