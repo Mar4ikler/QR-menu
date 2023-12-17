@@ -14,7 +14,7 @@ import { CreateDishDto } from './dto/create-dish.dto';
 import { UpdateDishDto } from './dto/update-dish.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 
-@Controller('dishes')
+@Controller('api/dishes')
 export class DishesController {
   constructor(private readonly dishesService: DishesService) {}
 

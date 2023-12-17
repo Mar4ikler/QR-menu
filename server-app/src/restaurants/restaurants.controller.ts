@@ -14,7 +14,7 @@ import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 
-@Controller('restaurants')
+@Controller('api/restaurants')
 export class RestaurantsController {
   constructor(private readonly restaurantsService: RestaurantsService) {}
 

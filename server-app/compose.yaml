@@ -1,18 +1,27 @@
-name: server-app
+name: backend
 services:
     backend:
         build: .
-        container_name: server-backend
+        container_name: server-app
         networks:
             - server-side
-            - client-side
         ports:
-            - 4000:4000
+            - "172.20.10.2:4000:4000"
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+    db:
+        container_name: restaurant-db
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        environment:
+            - ACCEPT_EULA=Y
+            - MSSQL_SA_PASSWORD=Vladysik_100
+        ports:
+            - 1433:1433
+        networks:
+            - server-side
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
 
-
 networks:
-    client-side: {}
-    server-side: {}
-
+    server-side:
+        driver: bridge
